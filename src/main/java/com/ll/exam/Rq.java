@@ -19,21 +19,29 @@ public class Rq {
         if (urlBits.length == 2) {
             String queryStr = urlBits[1];
 
-            String[] paramBits = queryStr.split("&");
-
-            for (String paramBit : paramBits) {
-                String[] paramNameAndValue = paramBit.split("=", 2);
-
-                if (paramNameAndValue.length == 1) {
-                    continue;
-                }
-
-                String paramName = paramNameAndValue[0].trim();
-                String paramValue = paramNameAndValue[1].trim();
-
-                queryParams.put(paramName, paramValue);
-            }
+            queryParams = getMapFromQueryStr(queryStr);
         }
+    }
+
+    private static Map<String, String> getMapFromQueryStr(String queryStr) {
+        Map<String, String> queryParams = new HashMap<>();
+
+        String[] paramBits = queryStr.split("&");
+
+        for (String paramBit : paramBits) {
+            String[] paramNameAndValue = paramBit.split("=", 2);
+
+            if (paramNameAndValue.length == 1) {
+                continue;
+            }
+
+            String paramName = paramNameAndValue[0].trim();
+            String paramValue = paramNameAndValue[1].trim();
+
+            queryParams.put(paramName, paramValue);
+        }
+
+        return queryParams;
     }
 
     public int getIntParam(String paramName, int defaultValue) {
