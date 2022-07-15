@@ -108,4 +108,15 @@ public class WiseSayingTable {
 
         return true;
     }
+
+    public void dumpToJson() {
+        List<WiseSaying> wiseSayings = findAll();
+
+        String json = "[" + wiseSayings
+                .stream()
+                .map(wiseSaying -> wiseSaying.toJson())
+                .collect(Collectors.joining(",")) + "]";
+
+        Util.file.saveToFile(WiseSayingTable.getTableDataDumpFilePath(), json);
+    }
 }
