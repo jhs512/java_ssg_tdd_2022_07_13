@@ -5,8 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.File;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class WiseSayingControllerTest {
@@ -111,5 +112,17 @@ public class WiseSayingControllerTest {
 
         assertTrue(rs.contains("== 명언 SSG =="));
         assertTrue(rs.contains("명령)"));
+    }
+
+    @Test
+    public void 빌드를_수행하면_결과물_파일이_생성된다() {
+        String rs = AppTestRunner.run("빌드");
+
+        File file = new File(WiseSayingTable.getTableDataDumpFilePath());
+        assertTrue(file.exists());
+
+        String dumpFileBody = Util.file.readFromFile(WiseSayingTable.getTableDataDumpFilePath(), "");
+
+        assertEquals("[]", dumpFileBody);
     }
 }
