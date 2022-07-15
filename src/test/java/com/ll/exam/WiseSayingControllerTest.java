@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class WiseSayingControllerTest {
     @BeforeAll
     public void beforeAll() {
-        App.mode = "test";
+        App.setMode("test");
     }
 
     @BeforeEach
     public void beforeEach() {
-        Util.file.deleteDir(App.getBaseDir());
+        Util.file.deleteDir(App.getDataBaseDir());
     }
 
     @Test
